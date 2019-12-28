@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "flonters:cyan_tallflower"
+    }
+  ],
+  "result": {
+    "item": "minecraft:cyan_dye",
+    "count": 2
+  }
+}

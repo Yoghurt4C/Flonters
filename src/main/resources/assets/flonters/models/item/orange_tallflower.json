@@ -1,0 +1,6 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "flonters:block/orange_tallflower_top"
+    }
+}

@@ -1,0 +1,41 @@
+{
+  "itemGroup.flonters.core_group": "Flonters",
+
+  "block.flonters.red_flower": "Red Begonia",
+  "block.flonters.green_flower": "Green Calla Lily",
+  "block.flonters.purple_flower": "Purple Foxglove",
+  "block.flonters.cyan_flower": "Cyan Calla Lily",
+  "block.flonters.light_gray_flower": "Light Gray Rose Campion",
+  "block.flonters.gray_flower": "Gray Lungwort",
+  "block.flonters.pink_flower": "Pink Lathyrus",
+  "block.flonters.lime_flower": "Lime Lily",
+  "block.flonters.yellow_flower": "Yellow Ranunculus",
+  "block.flonters.light_blue_flower": "Light Blue Nikko Hydrangea",
+  "block.flonters.magenta_flower": "Magenta Begonia",
+  "block.flonters.orange_flower": "Orange Calla Lily",
+  "block.flonters.blue_flower": "Blue Bellflower",
+  "block.flonters.brown_flower": "Brown Gladiolus",
+  "block.flonters.black_flower": "Black Bat Orchid",
+  "block.flonters.white_flower": "White Dendrobium Orchid",
+
+  "block.flonters.red_tallflower": "Tall Red Begonia",
+  "block.flonters.green_tallflower": "Tall Green Calla Lily",
+  "block.flonters.purple_tallflower": "Tall Purple Foxglove",
+  "block.flonters.cyan_tallflower": "Tall Cyan Calla Lily",
+  "block.flonters.light_gray_tallflower": "Tall Light Gray Rose Campion",
+  "block.flonters.gray_tallflower": "Tall Gray Lungwort",
+  "block.flonters.pink_tallflower": "Tall Pink Lathyrus",
+  "block.flonters.lime_tallflower": "Tall Lime Lily",
+  "block.flonters.yellow_tallflower": "Tall Yellow Ranunculus",
+  "block.flonters.light_blue_tallflower": "Tall Light Blue Nikko Hydrangea",
+  "block.flonters.magenta_tallflower": "Tall Magenta Begonia",
+  "block.flonters.orange_tallflower": "Tall Orange Calla Lily",
+  "block.flonters.blue_tallflower": "Tall Blue Bellflower",
+  "block.flonters.brown_tallflower": "Tall Brown Gladiolus",
+  "block.flonters.black_tallflower": "Tall Black Bat Orchid",
+  "block.flonters.white_tallflower": "Tall White Dendrobium Orchid",
+
+  "item.flonters.eggshell_fertilizer": "Eggshell Fertilizer",
+
+  "tooltip.flonters.eggshell_fertilizer.tooltip": "Used to grow Flonters."
+}

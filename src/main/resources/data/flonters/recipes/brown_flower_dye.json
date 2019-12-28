@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "flonters:brown_flower"
+    }
+  ],
+  "result": {
+    "item": "minecraft:brown_dye",
+    "count": 1
+  }
+}

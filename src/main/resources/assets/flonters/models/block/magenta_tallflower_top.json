@@ -1,0 +1,6 @@
+{
+    "parent": "block/cross",
+    "textures": {
+        "cross": "flonters:block/magenta_tallflower_top"
+    }
+}

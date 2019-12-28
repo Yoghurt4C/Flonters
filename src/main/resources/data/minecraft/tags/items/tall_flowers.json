@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "flonters:red_tallflower",
+    "flonters:green_tallflower",
+    "flonters:purple_tallflower",
+    "flonters:cyan_tallflower",
+    "flonters:light_gray_tallflower",
+    "flonters:gray_tallflower",
+    "flonters:pink_tallflower",
+    "flonters:lime_tallflower",
+    "flonters:yellow_tallflower",
+    "flonters:light_blue_tallflower",
+    "flonters:magenta_tallflower",
+    "flonters:orange_tallflower",
+    "flonters:blue_tallflower",
+    "flonters:brown_tallflower",
+    "flonters:black_tallflower",
+    "flonters:white_tallflower"
+  ]
+}

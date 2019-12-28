@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "flonters:magenta_tallflower"
+    }
+  ],
+  "result": {
+    "item": "minecraft:magenta_dye",
+    "count": 2
+  }
+}

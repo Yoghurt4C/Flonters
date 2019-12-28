@@ -1,0 +1,37 @@
+
+{
+  "schemaVersion": 1,
+  "id": "flonters",
+  "version": "${version}",
+
+  "name": "Flonters",
+  "description": "Adds miscellaneous flora.",
+  "authors": [
+    "Yoghurt4C"
+  ],
+  "contact": {
+    "homepage": "",
+    "sources": ""
+  },
+
+  "license": "MMPL-J 1.0",
+  "icon": "assets/flonters/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "mods.flonters.Flonters"
+    ],
+    "client": [
+      "mods.flonters.client.FlontersClient"
+    ]
+  },
+
+  "depends": {
+    "fabricloader": ">=0.4.0",
+    "fabric": "*"
+  },
+  "suggests": {
+    "flamingo": "*"
+  }
+}

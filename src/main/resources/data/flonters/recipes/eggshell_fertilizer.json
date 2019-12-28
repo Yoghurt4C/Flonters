@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "bonemeal",
+  "ingredients": [
+    {"item": "minecraft:egg"},
+    {"tag": "c:dye_any"},
+    {"tag": "c:dye_any"},
+    {"tag": "c:dye_any"},
+    {"tag": "c:dye_any"}
+  ],
+  "result": {
+    "item": "flonters:eggshell_fertilizer",
+    "count": 3
+  }
+}

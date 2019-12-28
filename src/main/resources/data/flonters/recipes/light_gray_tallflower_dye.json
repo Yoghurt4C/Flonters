@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "flonters:light_gray_tallflower"
+    }
+  ],
+  "result": {
+    "item": "minecraft:light_gray_dye",
+    "count": 2
+  }
+}
