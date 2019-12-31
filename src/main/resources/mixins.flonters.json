@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "mods.flonters.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "FlowerPotMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

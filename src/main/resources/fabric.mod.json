@@ -26,7 +26,9 @@
       "mods.flonters.client.FlontersClient"
     ]
   },
-
+  "mixins": [
+    "mixins.flonters.json"
+  ],
   "depends": {
     "fabricloader": ">=0.4.0",
     "fabric": "*"

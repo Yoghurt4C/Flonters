@@ -1,11 +1,10 @@
 package mods.flonters.registry;
 
 import mods.flonters.Flonters;
-import mods.flonters.blocks.FlonterBlock;
-import mods.flonters.blocks.TallFlonterBlock;
+import mods.flonters.blocks.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.block.FlowerPotBlock;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.DyeColor;
@@ -13,40 +12,80 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class FlontersBlocks {
-    //todo better potions effects
-    public static Block RED_FLOWER = new FlonterBlock(StatusEffects.NIGHT_VISION, 5,Block.Settings.copy(Blocks.POPPY),DyeColor.RED);
-    public static Block GREEN_FLOWER = new FlonterBlock(StatusEffects.NIGHT_VISION, 5,Block.Settings.copy(Blocks.POPPY),DyeColor.GREEN);
-    public static Block PURPLE_FLOWER = new FlonterBlock(StatusEffects.NIGHT_VISION, 5,Block.Settings.copy(Blocks.POPPY),DyeColor.PURPLE);
-    public static Block CYAN_FLOWER = new FlonterBlock(StatusEffects.NIGHT_VISION, 5,Block.Settings.copy(Blocks.POPPY),DyeColor.CYAN);
-    public static Block LIGHT_GRAY_FLOWER = new FlonterBlock(StatusEffects.NIGHT_VISION, 5,Block.Settings.copy(Blocks.POPPY),DyeColor.LIGHT_GRAY);
-    public static Block LLWYD_FLOWER = new FlonterBlock(StatusEffects.NIGHT_VISION, 5,Block.Settings.copy(Blocks.POPPY),DyeColor.GRAY);
-    public static Block PINK_FLOWER = new FlonterBlock(StatusEffects.NIGHT_VISION, 5,Block.Settings.copy(Blocks.POPPY),DyeColor.PINK);
-    public static Block LIME_FLOWER = new FlonterBlock(StatusEffects.NIGHT_VISION, 5,Block.Settings.copy(Blocks.POPPY),DyeColor.LIME);
-    public static Block YELLOW_FLOWER = new FlonterBlock(StatusEffects.NIGHT_VISION, 5,Block.Settings.copy(Blocks.POPPY),DyeColor.YELLOW);
-    public static Block LIGHT_BLUE_FLOWER = new FlonterBlock(StatusEffects.NIGHT_VISION, 5,Block.Settings.copy(Blocks.POPPY),DyeColor.LIGHT_BLUE);
-    public static Block MAGENTA_FLOWER = new FlonterBlock(StatusEffects.NIGHT_VISION, 5,Block.Settings.copy(Blocks.POPPY),DyeColor.MAGENTA);
-    public static Block ORANGE_FLOWER = new FlonterBlock(StatusEffects.NIGHT_VISION, 5,Block.Settings.copy(Blocks.POPPY),DyeColor.ORANGE);
-    public static Block BLUE_FLOWER = new FlonterBlock(StatusEffects.NIGHT_VISION, 5,Block.Settings.copy(Blocks.POPPY),DyeColor.BLUE);
-    public static Block BROWN_FLOWER = new FlonterBlock(StatusEffects.NIGHT_VISION, 5,Block.Settings.copy(Blocks.POPPY),DyeColor.BROWN);
-    public static Block BLACK_FLOWER = new FlonterBlock(StatusEffects.NIGHT_VISION, 5,Block.Settings.copy(Blocks.POPPY),DyeColor.BLACK);
-    public static Block WHITE_FLOWER = new FlonterBlock(StatusEffects.NIGHT_VISION, 5,Block.Settings.copy(Blocks.POPPY),DyeColor.WHITE);
+    public static Block RED_FLOWER = new FlonterBlock(DyeColor.RED);
+    public static Block GREEN_FLOWER = new FlonterBlock(DyeColor.GREEN);
+    public static Block PURPLE_FLOWER = new FlonterBlock(DyeColor.PURPLE);
+    public static Block CYAN_FLOWER = new FlonterBlock(DyeColor.CYAN);
+    public static Block LIGHT_GRAY_FLOWER = new FlonterBlock(DyeColor.LIGHT_GRAY);
+    public static Block LLWYD_FLOWER = new FlonterBlock(DyeColor.GRAY);
+    public static Block PINK_FLOWER = new FlonterBlock(DyeColor.PINK);
+    public static Block LIME_FLOWER = new FlonterBlock(DyeColor.LIME);
+    public static Block YELLOW_FLOWER = new FlonterBlock(DyeColor.YELLOW);
+    public static Block LIGHT_BLUE_FLOWER = new FlonterBlock(DyeColor.LIGHT_BLUE);
+    public static Block MAGENTA_FLOWER = new FlonterBlock(DyeColor.MAGENTA);
+    public static Block ORANGE_FLOWER = new FlonterBlock(DyeColor.ORANGE);
+    public static Block BLUE_FLOWER = new FlonterBlock(DyeColor.BLUE);
+    public static Block BROWN_FLOWER = new FlonterBlock(DyeColor.BROWN);
+    public static Block BLACK_FLOWER = new FlonterBlock(DyeColor.BLACK);
+    public static Block WHITE_FLOWER = new FlonterBlock(DyeColor.WHITE);
 
-    public static Block RED_TALLFLOWER = new TallFlonterBlock(Block.Settings.copy(Blocks.ROSE_BUSH),DyeColor.RED);
-    public static Block GREEN_TALLFLOWER = new TallFlonterBlock(Block.Settings.copy(Blocks.ROSE_BUSH),DyeColor.GREEN);
-    public static Block PURPLE_TALLFLOWER = new TallFlonterBlock(Block.Settings.copy(Blocks.ROSE_BUSH),DyeColor.PURPLE);
-    public static Block CYAN_TALLFLOWER = new TallFlonterBlock(Block.Settings.copy(Blocks.ROSE_BUSH),DyeColor.CYAN);
-    public static Block LIGHT_GRAY_TALLFLOWER = new TallFlonterBlock(Block.Settings.copy(Blocks.ROSE_BUSH),DyeColor.LIGHT_GRAY);
-    public static Block LLWYD_TALLFLOWER = new TallFlonterBlock(Block.Settings.copy(Blocks.ROSE_BUSH),DyeColor.GRAY);
-    public static Block PINK_TALLFLOWER = new TallFlonterBlock(Block.Settings.copy(Blocks.ROSE_BUSH),DyeColor.PINK);
-    public static Block LIME_TALLFLOWER = new TallFlonterBlock(Block.Settings.copy(Blocks.ROSE_BUSH),DyeColor.LIME);
-    public static Block YELLOW_TALLFLOWER = new TallFlonterBlock(Block.Settings.copy(Blocks.ROSE_BUSH),DyeColor.YELLOW);
-    public static Block LIGHT_BLUE_TALLFLOWER = new TallFlonterBlock(Block.Settings.copy(Blocks.ROSE_BUSH),DyeColor.LIGHT_BLUE);
-    public static Block MAGENTA_TALLFLOWER = new TallFlonterBlock(Block.Settings.copy(Blocks.ROSE_BUSH),DyeColor.MAGENTA);
-    public static Block ORANGE_TALLFLOWER = new TallFlonterBlock(Block.Settings.copy(Blocks.ROSE_BUSH),DyeColor.ORANGE);
-    public static Block BLUE_TALLFLOWER = new TallFlonterBlock(Block.Settings.copy(Blocks.ROSE_BUSH),DyeColor.BLUE);
-    public static Block BROWN_TALLFLOWER = new TallFlonterBlock(Block.Settings.copy(Blocks.ROSE_BUSH),DyeColor.BROWN);
-    public static Block BLACK_TALLFLOWER = new TallFlonterBlock(Block.Settings.copy(Blocks.ROSE_BUSH),DyeColor.BLACK);
-    public static Block WHITE_TALLFLOWER = new TallFlonterBlock(Block.Settings.copy(Blocks.ROSE_BUSH),DyeColor.WHITE);
+    public static Block RED_TALLFLOWER = new TallFlonterBlock(DyeColor.RED);
+    public static Block GREEN_TALLFLOWER = new TallFlonterBlock(DyeColor.GREEN);
+    public static Block PURPLE_TALLFLOWER = new TallFlonterBlock(DyeColor.PURPLE);
+    public static Block CYAN_TALLFLOWER = new TallFlonterBlock(DyeColor.CYAN);
+    public static Block LIGHT_GRAY_TALLFLOWER = new TallFlonterBlock(DyeColor.LIGHT_GRAY);
+    public static Block LLWYD_TALLFLOWER = new TallFlonterBlock(DyeColor.GRAY);
+    public static Block PINK_TALLFLOWER = new TallFlonterBlock(DyeColor.PINK);
+    public static Block LIME_TALLFLOWER = new TallFlonterBlock(DyeColor.LIME);
+    public static Block YELLOW_TALLFLOWER = new TallFlonterBlock(DyeColor.YELLOW);
+    public static Block LIGHT_BLUE_TALLFLOWER = new TallFlonterBlock(DyeColor.LIGHT_BLUE);
+    public static Block MAGENTA_TALLFLOWER = new TallFlonterBlock(DyeColor.MAGENTA);
+    public static Block ORANGE_TALLFLOWER = new TallFlonterBlock(DyeColor.ORANGE);
+    public static Block BLUE_TALLFLOWER = new TallFlonterBlock(DyeColor.BLUE);
+    public static Block BROWN_TALLFLOWER = new TallFlonterBlock(DyeColor.BROWN);
+    public static Block BLACK_TALLFLOWER = new TallFlonterBlock(DyeColor.BLACK);
+    public static Block WHITE_TALLFLOWER = new TallFlonterBlock(DyeColor.WHITE);
+
+    //potables
+    public static Block POTTED_RED_FLOWER = new FlonterPotBlock(DyeColor.RED);
+    public static Block POTTED_GREEN_FLOWER = new FlonterPotBlock(DyeColor.GREEN);
+    public static Block POTTED_PURPLE_FLOWER = new FlonterPotBlock(DyeColor.PURPLE);
+    public static Block POTTED_CYAN_FLOWER = new FlonterPotBlock(DyeColor.CYAN);
+    public static Block POTTED_LIGHT_GRAY_FLOWER = new FlonterPotBlock(DyeColor.LIGHT_GRAY);
+    public static Block POTTED_LLWYD_FLOWER = new FlonterPotBlock(DyeColor.GRAY);
+    public static Block POTTED_PINK_FLOWER = new FlonterPotBlock(DyeColor.PINK);
+    public static Block POTTED_LIME_FLOWER = new FlonterPotBlock(DyeColor.LIME);
+    public static Block POTTED_YELLOW_FLOWER = new FlonterPotBlock(DyeColor.YELLOW);
+    public static Block POTTED_LIGHT_BLUE_FLOWER = new FlonterPotBlock(DyeColor.LIGHT_BLUE);
+    public static Block POTTED_MAGENTA_FLOWER = new FlonterPotBlock(DyeColor.MAGENTA);
+    public static Block POTTED_ORANGE_FLOWER = new FlonterPotBlock(DyeColor.ORANGE);
+    public static Block POTTED_BLUE_FLOWER = new FlonterPotBlock(DyeColor.BLUE);
+    public static Block POTTED_BROWN_FLOWER = new FlonterPotBlock(DyeColor.BROWN);
+    public static Block POTTED_BLACK_FLOWER = new FlonterPotBlock(DyeColor.BLACK);
+    public static Block POTTED_WHITE_FLOWER = new FlonterPotBlock(DyeColor.WHITE);
+
+    public static Block POTTED_RED_TALLFLOWER = new TallFlonterPotBlock(DyeColor.RED);
+    public static Block POTTED_GREEN_TALLFLOWER = new TallFlonterPotBlock(DyeColor.GREEN);
+    public static Block POTTED_PURPLE_TALLFLOWER = new TallFlonterPotBlock(DyeColor.PURPLE);
+    public static Block POTTED_CYAN_TALLFLOWER = new TallFlonterPotBlock(DyeColor.CYAN);
+    public static Block POTTED_LIGHT_GRAY_TALLFLOWER = new TallFlonterPotBlock(DyeColor.LIGHT_GRAY);
+    public static Block POTTED_LLWYD_TALLFLOWER = new TallFlonterPotBlock(DyeColor.GRAY);
+    public static Block POTTED_PINK_TALLFLOWER = new TallFlonterPotBlock(DyeColor.PINK);
+    public static Block POTTED_LIME_TALLFLOWER = new TallFlonterPotBlock(DyeColor.LIME);
+    public static Block POTTED_YELLOW_TALLFLOWER = new TallFlonterPotBlock(DyeColor.YELLOW);
+    public static Block POTTED_LIGHT_BLUE_TALLFLOWER = new TallFlonterPotBlock(DyeColor.LIGHT_BLUE);
+    public static Block POTTED_MAGENTA_TALLFLOWER = new TallFlonterPotBlock(DyeColor.MAGENTA);
+    public static Block POTTED_ORANGE_TALLFLOWER = new TallFlonterPotBlock(DyeColor.ORANGE);
+    public static Block POTTED_BLUE_TALLFLOWER = new TallFlonterPotBlock(DyeColor.BLUE);
+    public static Block POTTED_BROWN_TALLFLOWER = new TallFlonterPotBlock(DyeColor.BROWN);
+    public static Block POTTED_BLACK_TALLFLOWER = new TallFlonterPotBlock(DyeColor.BLACK);
+    public static Block POTTED_WHITE_TALLFLOWER = new TallFlonterPotBlock(DyeColor.WHITE);
+
+    //missing vanilla potables
+    public static Block POTTED_SUNFLOWER = new TallFlowerPotBlock(Blocks.SUNFLOWER, Block.Settings.copy(Blocks.POTTED_POPPY));
+    public static Block POTTED_LILAC= new TallFlowerPotBlock(Blocks.LILAC, Block.Settings.copy(Blocks.POTTED_POPPY));
+    public static Block POTTED_ROSE_BUSH = new TallFlowerPotBlock(Blocks.ROSE_BUSH, Block.Settings.copy(Blocks.POTTED_POPPY));
+    public static Block POTTED_PEONY = new TallFlowerPotBlock(Blocks.PEONY, Block.Settings.copy(Blocks.POTTED_POPPY));
 
     public static void init(){
         register ("red_flower",RED_FLOWER);
@@ -82,6 +121,45 @@ public class FlontersBlocks {
         register ("brown_tallflower",BROWN_TALLFLOWER);
         register ("black_tallflower",BLACK_TALLFLOWER);
         register ("white_tallflower",WHITE_TALLFLOWER);
+
+        subRegister ("potted_red_flower",POTTED_RED_FLOWER);
+        subRegister ("potted_green_flower",POTTED_GREEN_FLOWER);
+        subRegister ("potted_purple_flower",POTTED_PURPLE_FLOWER);
+        subRegister ("potted_cyan_flower",POTTED_CYAN_FLOWER);
+        subRegister ("potted_light_gray_flower",POTTED_LIGHT_GRAY_FLOWER);
+        subRegister ("potted_gray_flower",POTTED_LLWYD_FLOWER);
+        subRegister ("potted_pink_flower",POTTED_PINK_FLOWER);
+        subRegister ("potted_lime_flower",POTTED_LIME_FLOWER);
+        subRegister ("potted_yellow_flower",POTTED_YELLOW_FLOWER);
+        subRegister ("potted_light_blue_flower",POTTED_LIGHT_BLUE_FLOWER);
+        subRegister ("potted_magenta_flower",POTTED_MAGENTA_FLOWER);
+        subRegister ("potted_orange_flower",POTTED_ORANGE_FLOWER);
+        subRegister ("potted_blue_flower",POTTED_BLUE_FLOWER);
+        subRegister ("potted_brown_flower",POTTED_BROWN_FLOWER);
+        subRegister ("potted_black_flower",POTTED_BLACK_FLOWER);
+        subRegister ("potted_white_flower",POTTED_WHITE_FLOWER);
+
+        subRegister ("potted_red_tallflower",POTTED_RED_TALLFLOWER);
+        subRegister ("potted_green_tallflower",POTTED_GREEN_TALLFLOWER);
+        subRegister ("potted_purple_tallflower",POTTED_PURPLE_TALLFLOWER);
+        subRegister ("potted_cyan_tallflower",POTTED_CYAN_TALLFLOWER);
+        subRegister ("potted_light_gray_tallflower",POTTED_LIGHT_GRAY_TALLFLOWER);
+        subRegister ("potted_gray_tallflower",POTTED_LLWYD_TALLFLOWER);
+        subRegister ("potted_pink_tallflower",POTTED_PINK_TALLFLOWER);
+        subRegister ("potted_lime_tallflower",POTTED_LIME_TALLFLOWER);
+        subRegister ("potted_yellow_tallflower",POTTED_YELLOW_TALLFLOWER);
+        subRegister ("potted_light_blue_tallflower",POTTED_LIGHT_BLUE_TALLFLOWER);
+        subRegister ("potted_magenta_tallflower",POTTED_MAGENTA_TALLFLOWER);
+        subRegister ("potted_orange_tallflower",POTTED_ORANGE_TALLFLOWER);
+        subRegister ("potted_blue_tallflower",POTTED_BLUE_TALLFLOWER);
+        subRegister ("potted_brown_tallflower",POTTED_BROWN_TALLFLOWER);
+        subRegister ("potted_black_tallflower",POTTED_BLACK_TALLFLOWER);
+        subRegister ("potted_white_tallflower",POTTED_WHITE_TALLFLOWER);
+
+        subRegister ("potted_sunflower",POTTED_SUNFLOWER);
+        subRegister ("potted_lilac",POTTED_LILAC);
+        subRegister ("potted_rose_bush",POTTED_ROSE_BUSH);
+        subRegister ("potted_peony",POTTED_PEONY);
     }
 
     public static BlockItem register(String name, Block block, Item.Settings settings) {
@@ -95,6 +173,12 @@ public class FlontersBlocks {
 
     public static BlockItem register(String name, Block block) {
         return register(name, block, new Item.Settings().group(Flonters.FlontersCoreGroup));
+    }
+
+    public static Block subRegister(String name, Block block){
+        Identifier id = Flonters.getId(name);
+        Registry.register(Registry.BLOCK, id, block);
+        return block;
     }
 
     public static Block getFlonter(DyeColor color) {
@@ -137,6 +221,49 @@ public class FlontersBlocks {
             case BROWN:return BROWN_TALLFLOWER;
             case BLACK:return BLACK_TALLFLOWER;
             case WHITE:return WHITE_TALLFLOWER;
+        }
+    }
+
+    public static Block getPottedFlonter(DyeColor color) {
+        switch (color) {
+            default:
+            case RED:return POTTED_RED_FLOWER;
+            case GREEN:return POTTED_GREEN_FLOWER;
+            case PURPLE:return POTTED_PURPLE_FLOWER;
+            case CYAN:return POTTED_CYAN_FLOWER;
+            case LIGHT_GRAY:return POTTED_LIGHT_GRAY_FLOWER;
+            case GRAY:return POTTED_LLWYD_FLOWER;
+            case PINK:return POTTED_PINK_FLOWER;
+            case LIME:return POTTED_LIME_FLOWER;
+            case YELLOW:return POTTED_YELLOW_FLOWER;
+            case LIGHT_BLUE:return POTTED_LIGHT_BLUE_FLOWER;
+            case MAGENTA:return POTTED_MAGENTA_FLOWER;
+            case ORANGE:return POTTED_ORANGE_FLOWER;
+            case BLUE:return POTTED_BLUE_FLOWER;
+            case BROWN:return POTTED_BROWN_FLOWER;
+            case BLACK:return POTTED_BLACK_FLOWER;
+            case WHITE:return POTTED_WHITE_FLOWER;
+        }
+    }
+    public static Block getPottedTallFlonter(DyeColor color) {
+        switch (color) {
+            default:
+            case RED:return POTTED_RED_TALLFLOWER;
+            case GREEN:return POTTED_GREEN_TALLFLOWER;
+            case PURPLE:return POTTED_PURPLE_TALLFLOWER;
+            case CYAN:return POTTED_CYAN_TALLFLOWER;
+            case LIGHT_GRAY:return POTTED_LIGHT_GRAY_TALLFLOWER;
+            case GRAY:return POTTED_LLWYD_TALLFLOWER;
+            case PINK:return POTTED_PINK_TALLFLOWER;
+            case LIME:return POTTED_LIME_TALLFLOWER;
+            case YELLOW:return POTTED_YELLOW_TALLFLOWER;
+            case LIGHT_BLUE:return POTTED_LIGHT_BLUE_TALLFLOWER;
+            case MAGENTA:return POTTED_MAGENTA_TALLFLOWER;
+            case ORANGE:return POTTED_ORANGE_TALLFLOWER;
+            case BLUE:return POTTED_BLUE_TALLFLOWER;
+            case BROWN:return POTTED_BROWN_TALLFLOWER;
+            case BLACK:return POTTED_BLACK_TALLFLOWER;
+            case WHITE:return POTTED_WHITE_TALLFLOWER;
         }
     }
 }

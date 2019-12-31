@@ -1,0 +1,7 @@
+{
+    "parent": "flonters:block/flower_pot_cross_top",
+    "ambientocclusion": false,
+    "textures": {
+        "plant": "block/rose_bush_top"
+    }
+}

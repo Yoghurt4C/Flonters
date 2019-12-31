@@ -1,7 +1,9 @@
 package mods.flonters.items;
 
 import mods.flonters.blocks.FlonterBlock;
+import mods.flonters.blocks.FlonterPotBlock;
 import mods.flonters.blocks.TallFlonterBlock;
+import mods.flonters.blocks.TallFlonterPotBlock;
 import mods.flonters.registry.FlontersBlocks;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -10,6 +12,7 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.tag.BlockTags;
@@ -23,6 +26,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,9 +39,9 @@ public class ItemFlonterFertilizer extends Item {
     public ActionResult useOnBlock(ItemUsageContext context) {
         World world = context.getWorld();
         BlockPos pos = context.getBlockPos();
+        final int range = 3;
         Block block = world.getBlockState(pos).getBlock();
         if (BlockTags.BAMBOO_PLANTABLE_ON.contains(block)) {
-            final int range = 3;
             if (!world.isClient) {
                 List<BlockPos> validPosList = new ArrayList<>();
 
@@ -59,32 +63,20 @@ public class ItemFlonterFertilizer extends Item {
                 context.getStack().decrement(1);
             } else {
                 for (int i = 0; i < 15; i++) {
-                    world.addParticle(ParticleTypes.HAPPY_VILLAGER,
-                            pos.getX() - range + world.random.nextInt(range * 2 + 1) + Math.random(),
-                            pos.getY() + 1.25,
-                            pos.getZ() - range + world.random.nextInt(range * 2 + 1) + Math.random(),
-                            0,
-                            (float) Math.random() * 0.1F - 0.05F,
-                            0);
+                    spawnSpreadFX(world,pos,range);
                 }
             }
             return ActionResult.SUCCESS;
         } else if (block instanceof FlonterBlock) {
             for (int i = 0; i < 16; i++) {
                 if (block == FlontersBlocks.getFlonter(DyeColor.byId(i))
-                        && world.getBlockState(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ())).isAir()) {
+                        && ((FlonterBlock) block).canGrow(world,pos,world.getBlockState(pos))) {
                     if (!world.isClient) {
                         ((TallFlonterBlock) FlontersBlocks.getTallFlonter(DyeColor.byId(i))).placeAt(world, pos, 3);
                         context.getStack().decrement(1);
                     } else {
                         for (int p = 0; p < 15; p++) {
-                            world.addParticle(ParticleTypes.HAPPY_VILLAGER,
-                                    pos.getX() + Math.random(),
-                                    pos.getY() + 0.25 + Math.random(),
-                                    pos.getZ() + Math.random(),
-                                    3,
-                                    (float) Math.random() * 0.1F - 0.05F,
-                                    3);
+                            spawnFX(world, pos, range);
                         }
                     }
                 }
@@ -97,13 +89,33 @@ public class ItemFlonterFertilizer extends Item {
                 context.getStack().decrement(1);
             } else {
                 for (int p = 0; p < 15; p++) {
-                    world.addParticle(ParticleTypes.HAPPY_VILLAGER,
-                            pos.getX() + Math.random(),
-                            pos.getY() + 0.25 + Math.random(),
-                            pos.getZ() + Math.random(),
-                            3,
-                            (float) Math.random() * 0.1F - 0.05F,
-                            3);
+                    spawnFX(world, pos, range);
+                }
+            }
+            return ActionResult.SUCCESS;
+        } else if (block instanceof FlonterPotBlock) {
+            for (int i = 0; i < 16; i++) {
+                if (block == FlontersBlocks.getPottedFlonter(DyeColor.byId(i))
+                        && ((FlonterPotBlock) block).canGrow(world,pos,world.getBlockState(pos))) {
+                    if (!world.isClient) {
+                        ((TallFlonterPotBlock) FlontersBlocks.getPottedTallFlonter(DyeColor.byId(i))).placeAt(world, pos, 3);
+                        context.getStack().decrement(1);
+                    } else {
+                        for (int p = 0; p < 15; p++) {
+                            spawnFX(world, pos, range);
+                        }
+                    }
+                }
+            }
+            return ActionResult.SUCCESS;
+        } else if (block instanceof TallFlonterPotBlock){
+            if(!world.isClient){
+                ServerWorld serverWorld = world instanceof ServerWorld ? (ServerWorld)world:null;
+                ((TallFlonterPotBlock) block).grow(serverWorld,world.random,pos,world.getBlockState(pos));
+                context.getStack().decrement(1);
+            } else {
+                for (int p = 0; p < 15; p++) {
+                    spawnFX(world, pos, range);
                 }
             }
             return ActionResult.SUCCESS;
@@ -118,5 +130,15 @@ public class ItemFlonterFertilizer extends Item {
         text.formatted(Formatting.GRAY);
         text.formatted(Formatting.ITALIC);
         tooltip.add(text);
+    }
+
+    @Environment(EnvType.CLIENT)
+    public void spawnSpreadFX(World world, BlockPos pos, int range){
+        world.addParticle(ParticleTypes.HAPPY_VILLAGER,pos.getX() - range + world.random.nextInt(range * 2 + 1) + Math.random(), pos.getY() + 1.25, pos.getZ() - range + world.random.nextInt(range * 2 + 1) + Math.random(), 0, (float) Math.random() * 0.1F - 0.05F, 0);
+    }
+
+    @Environment(EnvType.CLIENT)
+    public void spawnFX(World world, BlockPos pos, int range){
+        world.addParticle(ParticleTypes.HAPPY_VILLAGER, pos.getX() + Math.random(), pos.getY() + 0.25 + Math.random(), pos.getZ() + Math.random(), range, (float) Math.random() * 0.1F - 0.05F, range);
     }
 }

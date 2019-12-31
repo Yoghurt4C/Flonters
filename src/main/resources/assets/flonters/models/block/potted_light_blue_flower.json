@@ -1,0 +1,7 @@
+{
+    "parent": "flonters:block/flower_pot_cross_bottom",
+    "ambientocclusion": false,
+    "textures": {
+        "plant": "flonters:block/light_blue_flower"
+    }
+}
