@@ -15,16 +15,17 @@ import net.minecraft.world.gen.feature.*;
 public class FlontersGenerator {
     public static <F extends FeatureConfig, D extends DecoratorConfig> ConfiguredFeature<?, ?> configureFeature(Feature<F> feature, F featureConfig, Decorator<D> decorator, D decoratorConfig) {
         Feature<DecoratedFeatureConfig> feature2 = feature instanceof FlowerFeature ? Feature.DECORATED_FLOWER : Feature.DECORATED;
-        return new ConfiguredFeature(feature2, new DecoratedFeatureConfig(feature.configure(featureConfig), decorator.configure(decoratorConfig)));
+        return new ConfiguredFeature<>(feature2, new DecoratedFeatureConfig(feature.configure(featureConfig), decorator.configure(decoratorConfig)));
     }
-    public static final Feature<FlontersFeatureConfig> SMALL_FLONTERS = register("small_flonters", new FlontersFeature(FlontersFeatureConfig::deserialize));
+
+    public static final Feature<FlontersFeatureConfig> SMALL_FLONTERS = register("small_flonters", new FlontersFeature(FlontersFeatureConfig.CODEC));
 
     public static <C extends FeatureConfig, F extends Feature<C>> F register(String name, F feature) {
         return Registry.register(Registry.FEATURE, Flonters.getId(name), feature);
     }
 
     private static void handleBiome(Biome biome) {
-        if(biome.getCategory() != Biome.Category.NETHER && biome.getCategory() != Biome.Category.THEEND) {
+        if (biome.getCategory() != Biome.Category.NETHER && biome.getCategory() != Biome.Category.THEEND) {
             biome.addFeature(GenerationStep.Feature.VEGETAL_DECORATION,
                     configureFeature(SMALL_FLONTERS,
                             new FlontersFeatureConfig(),
@@ -34,7 +35,9 @@ public class FlontersGenerator {
     }
 
     public static void init() {
-        for (Biome biome : Registry.BIOME) { handleBiome(biome); }
+        for (Biome biome : Registry.BIOME) {
+            handleBiome(biome);
+        }
         RegistryEntryAddedCallback.event(Registry.BIOME).register((i, identifier, biome) -> handleBiome(biome));
     }
 }

@@ -1,6 +1,5 @@
 package mods.flonters.client;
 
-import mods.flonters.Flonters;
 import mods.flonters.registry.FlontersBlocks;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.impl.blockrenderlayer.BlockRenderLayerMapImpl;

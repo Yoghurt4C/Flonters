@@ -4,7 +4,6 @@ import mods.flonters.blocks.TallFlonterBlock;
 import mods.flonters.blocks.TallFlonterPotBlock;
 import mods.flonters.blocks.TallFlowerPotBlock;
 import net.minecraft.block.*;
-import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -32,16 +31,17 @@ public abstract class FlowerPotMixin {
     @Shadow
     @Final
     private Block content;
-    @Inject(method="onUse", at = @At(value = "JUMP", opcode = Opcodes.IFEQ, shift = At.Shift.AFTER, ordinal = 1),cancellable = true)
+
+    @Inject(method = "onUse", at = @At(value = "JUMP", opcode = Opcodes.IFEQ, shift = At.Shift.AFTER, ordinal = 1), cancellable = true)
     public void tallFlowerPotInjection(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
         ItemStack itemStack = player.getStackInHand(hand);
         Item item = itemStack.getItem();
-        BlockPos posUp=new BlockPos(pos.getX(),pos.getY()+1,pos.getZ());
-        Block block = item instanceof BlockItem ? (Block) CONTENT_TO_POTTED.getOrDefault(((BlockItem) item).getBlock(), Blocks.AIR) : Blocks.AIR;
-                if (Block.getBlockFromItem(player.getStackInHand(hand).getItem()) instanceof TallFlonterBlock & world.getBlockState(pos.up()).canPlaceAt(world, pos)) {
-                    ((TallFlonterPotBlock)block).placeAt(world,pos,3);
-                } else if (Block.getBlockFromItem(player.getStackInHand(hand).getItem()) instanceof TallFlowerBlock & world.getBlockState(pos.up()).canPlaceAt(world, pos)) {
-                    ((TallFlowerPotBlock)block).placeAt(world,pos,3);
-                }
+        BlockPos posUp = new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ());
+        Block block = item instanceof BlockItem ? CONTENT_TO_POTTED.getOrDefault(((BlockItem) item).getBlock(), Blocks.AIR) : Blocks.AIR;
+        if (Block.getBlockFromItem(player.getStackInHand(hand).getItem()) instanceof TallFlonterBlock & world.getBlockState(pos.up()).canPlaceAt(world, pos)) {
+            ((TallFlonterPotBlock) block).placeAt(world, pos, 3);
+        } else if (Block.getBlockFromItem(player.getStackInHand(hand).getItem()) instanceof TallFlowerBlock & world.getBlockState(pos.up()).canPlaceAt(world, pos)) {
+            ((TallFlowerPotBlock) block).placeAt(world, pos, 3);
+        }
     }
 }

@@ -12,20 +12,21 @@ import net.minecraft.util.Identifier;
 
 public class Flonters implements ModInitializer {
 
-	public static ItemGroup FlontersCoreGroup = FabricItemGroupBuilder.build(
-			getId("core_group"),
-			() -> new ItemStack(FlontersBlocks.RED_FLOWER));
+    public static ItemGroup FlontersCoreGroup = FabricItemGroupBuilder.build(
+            getId("core_group"),
+            () -> new ItemStack(FlontersBlocks.RED_FLOWER));
 
-	@Override
-	public void onInitialize() {
-		FlontersBlocks.init();
-		FlontersItems.init();
-		FlontersProperties.init();
-		FlontersGenerator.init();
-	}
+    @Override
+    public void onInitialize() {
+        FlontersBlocks.init();
+        FlontersItems.init();
+        FlontersProperties.init();
+        FlontersGenerator.init();
+    }
 
-	public static Identifier getId(String name) {
-		return new Identifier("flonters", name);
-	}
-	public static final String modid="flonters";
+    public static Identifier getId(String name) {
+        return new Identifier("flonters", name);
+    }
+
+    public static final String modid = "flonters";
 }

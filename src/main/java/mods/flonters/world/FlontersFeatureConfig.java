@@ -1,12 +1,9 @@
 package mods.flonters.world;
 
-import com.mojang.datafixers.Dynamic;
-import com.mojang.datafixers.types.DynamicOps;
+import com.mojang.serialization.Codec;
 import net.minecraft.world.gen.feature.FeatureConfig;
 
 import static mods.flonters.properties.FlontersProperties.*;
-
-import javax.annotation.Nonnull;
 
 public class FlontersFeatureConfig implements FeatureConfig {
     public int getPatchSize() {
@@ -29,13 +26,5 @@ public class FlontersFeatureConfig implements FeatureConfig {
         return tallFlonterChance;
     }
 
-    @Nonnull
-    @Override
-    public <T> Dynamic<T> serialize(@Nonnull DynamicOps<T> ops) {
-        return new Dynamic<>(ops);
-    }
-
-    public static FlontersFeatureConfig deserialize(Dynamic<?> dynamic) {
-        return new FlontersFeatureConfig();
-    }
+    public static final Codec<FlontersFeatureConfig> CODEC = Codec.unit(new FlontersFeatureConfig());
 }

@@ -5,7 +5,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.DoubleBlockHalf;
-import net.minecraft.entity.EntityContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
@@ -14,15 +13,14 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 
 import javax.annotation.Nullable;
@@ -31,13 +29,13 @@ import java.util.Random;
 public class TallFlowerPotBlock extends FlowerPotBlock implements Fertilizable {
     public static final EnumProperty<DoubleBlockHalf> HALF;
 
-    public TallFlowerPotBlock(Block content, Settings settings){
-        super(content,settings);
-        this.setDefaultState((BlockState)((BlockState)this.stateManager.getDefaultState()).with(HALF, DoubleBlockHalf.LOWER));
+    public TallFlowerPotBlock(Block content, Settings settings) {
+        super(content, settings);
+        this.setDefaultState(this.stateManager.getDefaultState().with(HALF, DoubleBlockHalf.LOWER));
     }
 
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction facing, BlockState neighborState, IWorld world, BlockPos pos, BlockPos neighborPos) {
-        DoubleBlockHalf doubleBlockHalf = (DoubleBlockHalf)state.get(HALF);
+    public BlockState getStateForNeighborUpdate(BlockState state, Direction facing, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+        DoubleBlockHalf doubleBlockHalf = state.get(HALF);
         if (facing.getAxis() == Direction.Axis.Y && doubleBlockHalf == DoubleBlockHalf.LOWER == (facing == Direction.UP) && (neighborState.getBlock() != this || neighborState.get(HALF) == doubleBlockHalf)) {
             return Blocks.AIR.getDefaultState();
         } else {
@@ -52,7 +50,7 @@ public class TallFlowerPotBlock extends FlowerPotBlock implements Fertilizable {
     }
 
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
-        world.setBlockState(pos.up(), (BlockState)this.getDefaultState().with(HALF, DoubleBlockHalf.UPPER), 3);
+        world.setBlockState(pos.up(), this.getDefaultState().with(HALF, DoubleBlockHalf.UPPER), 3);
     }
 
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
@@ -64,9 +62,9 @@ public class TallFlowerPotBlock extends FlowerPotBlock implements Fertilizable {
         }
     }
 
-    public void placeAt(IWorld world, BlockPos pos, int flags) {
-        world.setBlockState(pos, (BlockState)this.getDefaultState().with(HALF, DoubleBlockHalf.LOWER), flags);
-        world.setBlockState(pos.up(), (BlockState)this.getDefaultState().with(HALF, DoubleBlockHalf.UPPER), flags);
+    public void placeAt(WorldAccess world, BlockPos pos, int flags) {
+        world.setBlockState(pos, this.getDefaultState().with(HALF, DoubleBlockHalf.LOWER), flags);
+        world.setBlockState(pos.up(), this.getDefaultState().with(HALF, DoubleBlockHalf.UPPER), flags);
     }
 
     public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
@@ -74,15 +72,15 @@ public class TallFlowerPotBlock extends FlowerPotBlock implements Fertilizable {
     }
 
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        DoubleBlockHalf doubleBlockHalf = (DoubleBlockHalf)state.get(HALF);
+        DoubleBlockHalf doubleBlockHalf = state.get(HALF);
         BlockPos blockPos = doubleBlockHalf == DoubleBlockHalf.LOWER ? pos.up() : pos.down();
         BlockState blockState = world.getBlockState(blockPos);
         if (blockState.getBlock() == this && blockState.get(HALF) != doubleBlockHalf) {
             world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 35);
-            world.playLevelEvent(player, 2001, blockPos, Block.getRawIdFromState(blockState));
+            world.syncWorldEvent(player, 2001, blockPos, Block.getRawIdFromState(blockState));
             if (!world.isClient && !player.isCreative()) {
-                dropStacks(state, world, pos, (BlockEntity)null, player, player.getMainHandStack());
-                dropStacks(blockState, world, blockPos, (BlockEntity)null, player, player.getMainHandStack());
+                dropStacks(state, world, pos, null, player, player.getMainHandStack());
+                dropStacks(blockState, world, blockPos, null, player, player.getMainHandStack());
             }
         }
 
@@ -90,7 +88,7 @@ public class TallFlowerPotBlock extends FlowerPotBlock implements Fertilizable {
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(new Property[]{HALF});
+        builder.add(HALF);
     }
 
     public OffsetType getOffsetType() {
@@ -119,18 +117,20 @@ public class TallFlowerPotBlock extends FlowerPotBlock implements Fertilizable {
     }
 
     public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
-        dropStack(world, pos, new ItemStack(((FlowerPotBlock)state.getBlock()).getContent().asItem()));
+        dropStack(world, pos, new ItemStack(((FlowerPotBlock) state.getBlock()).getContent().asItem()));
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, EntityContext ePos) {
-        if (state.equals(state.getBlock().getDefaultState().with(HALF,DoubleBlockHalf.UPPER))) {return VoxelShapes.empty();}
-        else return SHAPE;
+    public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext ePos) {
+        if (state.equals(state.getBlock().getDefaultState().with(HALF, DoubleBlockHalf.UPPER))) {
+            return VoxelShapes.empty();
+        } else return SHAPE;
     }
 
     @Override
-    public VoxelShape getCollisionShape(BlockState state, BlockView view, BlockPos pos, EntityContext ePos) {
-        if (state.equals(state.getBlock().getDefaultState().with(HALF,DoubleBlockHalf.UPPER))) {return VoxelShapes.empty();}
-        else return SHAPE;
+    public VoxelShape getCollisionShape(BlockState state, BlockView view, BlockPos pos, ShapeContext ePos) {
+        if (state.equals(state.getBlock().getDefaultState().with(HALF, DoubleBlockHalf.UPPER))) {
+            return VoxelShapes.empty();
+        } else return SHAPE;
     }
 }

@@ -11,6 +11,7 @@ public class FlontersItems {
     public static void init() {
         register("eggshell_fertilizer", FLONTER_FERTILIZER);
     }
+
     public static void register(String name, Item item) {
         Registry.register(Registry.ITEM, Flonters.getId(name), item);
     }

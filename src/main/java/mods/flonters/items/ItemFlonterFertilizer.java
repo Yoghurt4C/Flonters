@@ -12,7 +12,6 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
-import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.tag.BlockTags;
@@ -26,7 +25,6 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +32,7 @@ public class ItemFlonterFertilizer extends Item {
     public ItemFlonterFertilizer(Settings settings) {
         super(settings);
     }
+
     @Nonnull
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
@@ -49,7 +48,7 @@ public class ItemFlonterFertilizer extends Item {
                     for (int j = -range - 1; j < range; j++) {
                         for (int k = 2; k >= -2; k--) {
                             BlockPos newPos = pos.add(i + 1, k + 1, j + 1);
-                            if (world.isAir(newPos) && (!world.getDimension().isNether() || newPos.getY() < 255) && FlontersBlocks.RED_FLOWER.getDefaultState().canPlaceAt(world, newPos))
+                            if (world.isAir(newPos) && (!world.getDimension().isPiglinSafe() || newPos.getY() < 255) && FlontersBlocks.RED_FLOWER.getDefaultState().canPlaceAt(world, newPos))
                                 validPosList.add(newPos);
                         }
                     }
@@ -63,29 +62,26 @@ public class ItemFlonterFertilizer extends Item {
                 context.getStack().decrement(1);
             } else {
                 for (int i = 0; i < 15; i++) {
-                    spawnSpreadFX(world,pos,range);
+                    spawnSpreadFX(world, pos, range);
                 }
             }
             return ActionResult.SUCCESS;
         } else if (block instanceof FlonterBlock) {
-            for (int i = 0; i < 16; i++) {
-                if (block == FlontersBlocks.getFlonter(DyeColor.byId(i))
-                        && ((FlonterBlock) block).canGrow(world,pos,world.getBlockState(pos))) {
-                    if (!world.isClient) {
-                        ((TallFlonterBlock) FlontersBlocks.getTallFlonter(DyeColor.byId(i))).placeAt(world, pos, 3);
-                        context.getStack().decrement(1);
-                    } else {
-                        for (int p = 0; p < 15; p++) {
-                            spawnFX(world, pos, range);
-                        }
+            if (((FlonterBlock) block).canGrow(world, pos, world.getBlockState(pos))) {
+                if (!world.isClient) {
+                    ((TallFlonterBlock) FlontersBlocks.getTallFlonter(((FlonterBlock) block).getColor())).placeAt(world, pos, 3);
+                    context.getStack().decrement(1);
+                } else {
+                    for (int p = 0; p < 15; p++) {
+                        spawnFX(world, pos, range);
                     }
                 }
             }
             return ActionResult.SUCCESS;
-        } else if (block instanceof TallFlonterBlock){
-            if(!world.isClient){
-                ServerWorld serverWorld = world instanceof ServerWorld ? (ServerWorld)world:null;
-                ((TallFlonterBlock) block).grow(serverWorld,world.random,pos,world.getBlockState(pos));
+        } else if (block instanceof TallFlonterBlock) {
+            if (!world.isClient) {
+                ServerWorld serverWorld = world instanceof ServerWorld ? (ServerWorld) world : null;
+                ((TallFlonterBlock) block).grow(serverWorld, world.random, pos, world.getBlockState(pos));
                 context.getStack().decrement(1);
             } else {
                 for (int p = 0; p < 15; p++) {
@@ -94,24 +90,23 @@ public class ItemFlonterFertilizer extends Item {
             }
             return ActionResult.SUCCESS;
         } else if (block instanceof FlonterPotBlock) {
-            for (int i = 0; i < 16; i++) {
-                if (block == FlontersBlocks.getPottedFlonter(DyeColor.byId(i))
-                        && ((FlonterPotBlock) block).canGrow(world,pos,world.getBlockState(pos))) {
-                    if (!world.isClient) {
-                        ((TallFlonterPotBlock) FlontersBlocks.getPottedTallFlonter(DyeColor.byId(i))).placeAt(world, pos, 3);
-                        context.getStack().decrement(1);
-                    } else {
-                        for (int p = 0; p < 15; p++) {
-                            spawnFX(world, pos, range);
-                        }
+            if (((FlonterPotBlock) block).canGrow(world, pos, world.getBlockState(pos))) {
+                if (!world.isClient) {
+                    ((TallFlonterPotBlock) FlontersBlocks.getPottedTallFlonter(((FlonterPotBlock) block).getColor())).placeAt(world, pos, 3);
+                    context.getStack().decrement(1);
+                } else {
+                    for (int p = 0; p < 15; p++) {
+                        spawnFX(world, pos, range);
                     }
                 }
             }
+
+
             return ActionResult.SUCCESS;
-        } else if (block instanceof TallFlonterPotBlock){
-            if(!world.isClient){
-                ServerWorld serverWorld = world instanceof ServerWorld ? (ServerWorld)world:null;
-                ((TallFlonterPotBlock) block).grow(serverWorld,world.random,pos,world.getBlockState(pos));
+        } else if (block instanceof TallFlonterPotBlock) {
+            if (!world.isClient) {
+                ServerWorld serverWorld = world instanceof ServerWorld ? (ServerWorld) world : null;
+                ((TallFlonterPotBlock) block).grow(serverWorld, world.random, pos, world.getBlockState(pos));
                 context.getStack().decrement(1);
             } else {
                 for (int p = 0; p < 15; p++) {
@@ -126,19 +121,17 @@ public class ItemFlonterFertilizer extends Item {
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         TranslatableText text;
-        text=new TranslatableText("tooltip.flonters.eggshell_fertilizer.tooltip");
+        text = new TranslatableText("tooltip.flonters.eggshell_fertilizer.tooltip");
         text.formatted(Formatting.GRAY);
         text.formatted(Formatting.ITALIC);
         tooltip.add(text);
     }
 
-    @Environment(EnvType.CLIENT)
-    public void spawnSpreadFX(World world, BlockPos pos, int range){
-        world.addParticle(ParticleTypes.HAPPY_VILLAGER,pos.getX() - range + world.random.nextInt(range * 2 + 1) + Math.random(), pos.getY() + 1.25, pos.getZ() - range + world.random.nextInt(range * 2 + 1) + Math.random(), 0, (float) Math.random() * 0.1F - 0.05F, 0);
+    public void spawnSpreadFX(World world, BlockPos pos, int range) {
+        world.addParticle(ParticleTypes.HAPPY_VILLAGER, pos.getX() - range + world.random.nextInt(range * 2 + 1) + Math.random(), pos.getY() + 1.25, pos.getZ() - range + world.random.nextInt(range * 2 + 1) + Math.random(), 0, (float) Math.random() * 0.1F - 0.05F, 0);
     }
 
-    @Environment(EnvType.CLIENT)
-    public void spawnFX(World world, BlockPos pos, int range){
+    public void spawnFX(World world, BlockPos pos, int range) {
         world.addParticle(ParticleTypes.HAPPY_VILLAGER, pos.getX() + Math.random(), pos.getY() + 0.25 + Math.random(), pos.getZ() + Math.random(), range, (float) Math.random() * 0.1F - 0.05F, range);
     }
 }
