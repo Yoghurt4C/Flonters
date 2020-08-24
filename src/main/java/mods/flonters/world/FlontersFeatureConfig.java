@@ -6,6 +6,9 @@ import net.minecraft.world.gen.feature.FeatureConfig;
 import static mods.flonters.properties.FlontersProperties.*;
 
 public class FlontersFeatureConfig implements FeatureConfig {
+    public static FlontersFeatureConfig INSTANCE = new FlontersFeatureConfig();
+    public static final Codec<FlontersFeatureConfig> CODEC = Codec.unit(INSTANCE);
+
     public int getPatchSize() {
         return flonterPatchSize;
     }
@@ -25,6 +28,4 @@ public class FlontersFeatureConfig implements FeatureConfig {
     public double getTallChance() {
         return tallFlonterChance;
     }
-
-    public static final Codec<FlontersFeatureConfig> CODEC = Codec.unit(new FlontersFeatureConfig());
 }

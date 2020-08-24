@@ -1,15 +1,13 @@
 package mods.flonters.properties;
 
 import net.fabricmc.loader.api.FabricLoader;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.util.Properties;
 
-public class FlontersProperties {
-    public static final Logger LOGGER = LogManager.getLogger("flonters");
+import static mods.flonters.Flonters.LOGGER;
 
+public class FlontersProperties {
     public static boolean logFlonterPropertiesParse = false;
     public static int flonterPatchSize = 6;
     public static int flonterPatchChance = 16;

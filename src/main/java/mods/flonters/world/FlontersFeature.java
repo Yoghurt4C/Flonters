@@ -1,7 +1,6 @@
 package mods.flonters.world;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.Dynamic;
 import mods.flonters.blocks.FlonterBlock;
 import mods.flonters.blocks.TallFlonterBlock;
 import mods.flonters.registry.FlontersBlocks;
@@ -10,14 +9,11 @@ import net.minecraft.block.BlockState;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.gen.StructureAccessor;
+import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 
 import java.util.Random;
-import java.util.function.Function;
 
 public class FlontersFeature extends Feature<FlontersFeatureConfig> {
 
@@ -26,7 +22,7 @@ public class FlontersFeature extends Feature<FlontersFeatureConfig> {
     }
 
     @Override
-    public boolean generate(ServerWorldAccess world, StructureAccessor struct, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, FlontersFeatureConfig config) {
+    public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, FlontersFeatureConfig config) {
         boolean doug = false;
         int distance = Math.min(8, Math.max(1, config.getPatchSize()));
         for (int i = 0; i < config.getPatchQuantity(); i++) {
@@ -55,7 +51,6 @@ public class FlontersFeature extends Feature<FlontersFeatureConfig> {
                 }
             }
         }
-
         return doug;
     }
 }
