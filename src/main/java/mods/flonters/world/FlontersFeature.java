@@ -12,6 +12,7 @@ import net.minecraft.world.Heightmap;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.util.FeatureContext;
 
 import java.util.Random;
 
@@ -22,6 +23,10 @@ public class FlontersFeature extends Feature<FlontersFeatureConfig> {
     }
 
     @Override
+    public boolean generate(FeatureContext<FlontersFeatureConfig> ctx) {
+        return generate(ctx.getWorld(), ctx.getGenerator(), ctx.getRandom(), ctx.getOrigin(), ctx.getConfig());
+    }
+
     public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, FlontersFeatureConfig config) {
         boolean doug = false;
         int distance = Math.min(8, Math.max(1, config.getPatchSize()));
@@ -44,7 +49,7 @@ public class FlontersFeature extends Feature<FlontersFeatureConfig> {
                         if (random.nextDouble() < config.getTallChance() && ((FlonterBlock) flonter.getBlock()).canGrow(world, pos2, world.getBlockState(pos2))) {
                             Block block = FlontersBlocks.getTallFlonter(color);
                             if (block instanceof TallFlonterBlock) {
-                                ((TallFlonterBlock) block).placeAt(world, pos2, 3);
+                                ((TallFlonterBlock) block).placeAt(world, block.getDefaultState(), pos2, 3);
                             }
                         }
                     }

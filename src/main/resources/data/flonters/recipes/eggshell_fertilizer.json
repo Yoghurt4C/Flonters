@@ -3,10 +3,10 @@
   "group": "bonemeal",
   "ingredients": [
     {"item": "minecraft:egg"},
-    {"tag": "c:dye_any"},
-    {"tag": "c:dye_any"},
-    {"tag": "c:dye_any"},
-    {"tag": "c:dye_any"}
+    {"tag": "c:dyes"},
+    {"tag": "c:dyes"},
+    {"tag": "c:dyes"},
+    {"tag": "c:dyes"}
   ],
   "result": {
     "item": "flonters:eggshell_fertilizer",

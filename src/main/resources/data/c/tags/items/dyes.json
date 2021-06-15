@@ -1,0 +1,22 @@
+{
+    "replace": false,
+    "values": [
+            "#c:black_dyes",
+            "#c:blue_dyes",
+            "#c:brown_dyes",
+            "#c:cyan_dyes",
+            "#c:gray_dyes",
+            "#c:green_dyes",
+            "#c:light_blue_dyes",
+            "#c:light_gray_dyes",
+            "#c:lime_dyes",
+            "#c:magenta_dyes",
+            "#c:orange_dyes",
+            "#c:pink_dyes",
+            "#c:purple_dyes",
+            "#c:red_dyes",
+            "#c:white_dyes",
+            "#c:yellow_dyes"
+
+    ]
+}

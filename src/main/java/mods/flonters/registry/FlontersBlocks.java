@@ -161,23 +161,21 @@ public class FlontersBlocks {
         subRegister("potted_peony", POTTED_PEONY);
     }
 
-    public static BlockItem register(String name, Block block, Item.Settings settings) {
+    public static void register(String name, Block block, Item.Settings settings) {
         Identifier id = Flonters.getId(name);
         Registry.register(Registry.BLOCK, id, block);
         BlockItem item = new BlockItem(block, settings);
         item.appendBlocks(Item.BLOCK_ITEMS, item);
         Registry.register(Registry.ITEM, id, item);
-        return item;
     }
 
-    public static BlockItem register(String name, Block block) {
-        return register(name, block, new Item.Settings().group(Flonters.FlontersCoreGroup));
+    public static void register(String name, Block block) {
+        register(name, block, new Item.Settings().group(Flonters.FlontersCoreGroup));
     }
 
-    public static Block subRegister(String name, Block block) {
+    public static void subRegister(String name, Block block) {
         Identifier id = Flonters.getId(name);
         Registry.register(Registry.BLOCK, id, block);
-        return block;
     }
 
     public static Block getFlonter(DyeColor color) {

@@ -28,7 +28,7 @@ public abstract class TotallyOriginalGenerationSettingsMixin {
     private List<List<Supplier<ConfiguredFeature<?, ?>>>> features;
 
     @Inject(method = "<init>", at = @At("RETURN"))
-    private void init(Supplier<ConfiguredSurfaceBuilder<?>> surfaceBuilder, Map<GenerationStep.Carver, List<Supplier<ConfiguredCarver<?>>>> carvers, List<List<Supplier<ConfiguredFeature<?, ?>>>> features, List<Supplier<ConfiguredStructureFeature<?, ?>>> structureFeatures, CallbackInfo info){
+    private void init(Supplier<ConfiguredSurfaceBuilder<?>> surfaceBuilder, Map<GenerationStep.Carver, List<Supplier<ConfiguredCarver<?>>>> carvers, List<List<Supplier<ConfiguredFeature<?, ?>>>> features, List<Supplier<ConfiguredStructureFeature<?, ?>>> structureFeatures, CallbackInfo info) {
         if (this.features instanceof ImmutableList) {
             this.features = new ArrayList<>(features);
         }

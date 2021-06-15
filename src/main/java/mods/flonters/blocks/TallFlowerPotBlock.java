@@ -27,13 +27,14 @@ import javax.annotation.Nullable;
 import java.util.Random;
 
 public class TallFlowerPotBlock extends FlowerPotBlock implements Fertilizable {
-    public static final EnumProperty<DoubleBlockHalf> HALF;
+    public static final EnumProperty<DoubleBlockHalf> HALF = Properties.DOUBLE_BLOCK_HALF;
 
     public TallFlowerPotBlock(Block content, Settings settings) {
         super(content, settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(HALF, DoubleBlockHalf.LOWER));
     }
 
+    @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction facing, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         DoubleBlockHalf doubleBlockHalf = state.get(HALF);
         if (facing.getAxis() == Direction.Axis.Y && doubleBlockHalf == DoubleBlockHalf.LOWER == (facing == Direction.UP) && (neighborState.getBlock() != this || neighborState.get(HALF) == doubleBlockHalf)) {
@@ -44,15 +45,18 @@ public class TallFlowerPotBlock extends FlowerPotBlock implements Fertilizable {
     }
 
     @Nullable
+    @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         BlockPos blockPos = ctx.getBlockPos();
         return blockPos.getY() < 255 && ctx.getWorld().getBlockState(blockPos.up()).canReplace(ctx) ? super.getPlacementState(ctx) : null;
     }
 
+    @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
         world.setBlockState(pos.up(), this.getDefaultState().with(HALF, DoubleBlockHalf.UPPER), 3);
     }
 
+    @Override
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
         if (state.get(HALF) != DoubleBlockHalf.UPPER) {
             return super.canPlaceAt(state, world, pos);
@@ -67,10 +71,12 @@ public class TallFlowerPotBlock extends FlowerPotBlock implements Fertilizable {
         world.setBlockState(pos.up(), this.getDefaultState().with(HALF, DoubleBlockHalf.UPPER), flags);
     }
 
+    @Override
     public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
         super.afterBreak(world, player, pos, Blocks.AIR.getDefaultState(), blockEntity, stack);
     }
 
+    @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         DoubleBlockHalf doubleBlockHalf = state.get(HALF);
         BlockPos blockPos = doubleBlockHalf == DoubleBlockHalf.LOWER ? pos.up() : pos.down();
@@ -87,12 +93,14 @@ public class TallFlowerPotBlock extends FlowerPotBlock implements Fertilizable {
         super.onBreak(world, pos, state, player);
     }
 
+    @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(HALF);
     }
 
+    @Override
     public OffsetType getOffsetType() {
-        return OffsetType.XZ;
+        return OffsetType.NONE;
     }
 
     @Environment(EnvType.CLIENT)
@@ -100,22 +108,22 @@ public class TallFlowerPotBlock extends FlowerPotBlock implements Fertilizable {
         return MathHelper.hashCode(pos.getX(), pos.down(state.get(HALF) == DoubleBlockHalf.LOWER ? 0 : 1).getY(), pos.getZ());
     }
 
-    static {
-        HALF = Properties.DOUBLE_BLOCK_HALF;
-    }
-
+    @Override
     public boolean canReplace(BlockState state, ItemPlacementContext ctx) {
         return false;
     }
 
+    @Override
     public boolean isFertilizable(BlockView world, BlockPos pos, BlockState state, boolean isClient) {
         return true;
     }
 
+    @Override
     public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) {
         return true;
     }
 
+    @Override
     public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
         dropStack(world, pos, new ItemStack(((FlowerPotBlock) state.getBlock()).getContent().asItem()));
     }

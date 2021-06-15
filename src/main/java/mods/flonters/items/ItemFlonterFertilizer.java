@@ -69,7 +69,8 @@ public class ItemFlonterFertilizer extends Item {
         } else if (block instanceof FlonterBlock) {
             if (((FlonterBlock) block).canGrow(world, pos, world.getBlockState(pos))) {
                 if (!world.isClient) {
-                    ((TallFlonterBlock) FlontersBlocks.getTallFlonter(((FlonterBlock) block).getColor())).placeAt(world, pos, 3);
+                    TallFlonterBlock tall = (TallFlonterBlock) FlontersBlocks.getTallFlonter(((FlonterBlock) block).getColor());
+                    tall.placeAt(world, tall.getDefaultState(), pos, 3);
                     context.getStack().decrement(1);
                 } else {
                     for (int p = 0; p < 15; p++) {

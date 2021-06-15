@@ -1,0 +1,65 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "flonters:black_flower_dye",
+      "flonters:black_tallflower_dye",
+      "flonters:blue_flower_dye",
+      "flonters:blue_tallflower_dye",
+      "flonters:brown_flower_dye",
+      "flonters:brown_tallflower_dye",
+      "flonters:cyan_flower_dye",
+      "flonters:cyan_tallflower_dye",
+      "flonters:gray_flower_dye",
+      "flonters:gray_tallflower_dye",
+      "flonters:green_flower_dye",
+      "flonters:green_tallflower_dye",
+      "flonters:light_blue_flower_dye",
+      "flonters:light_blue_tallflower_dye",
+      "flonters:light_gray_flower_dye",
+      "flonters:light_gray_tallflower_dye",
+      "flonters:lime_flower_dye",
+      "flonters:lime_tallflower_dye",
+      "flonters:magenta_flower_dye",
+      "flonters:magenta_tallflower_dye",
+      "flonters:orange_flower_dye",
+      "flonters:orange_tallflower_dye",
+      "flonters:pink_flower_dye",
+      "flonters:pink_tallflower_dye",
+      "flonters:purple_flower_dye",
+      "flonters:purple_tallflower_dye",
+      "flonters:red_flower_dye",
+      "flonters:red_tallflower_dye",
+      "flonters:white_flower_dye",
+      "flonters:white_tallflower_dye",
+      "flonters:yellow_flower_dye",
+      "flonters:yellow_tallflower_dye"
+    ]
+  },
+  "criteria": {
+    "bl": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "minecraft:small_flowers"
+          },
+          {
+            "tag": "minecraft:tall_flowers"
+          }
+        ]
+      }
+    },
+    "bl1": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "flonters:black_flower_dye"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "bl", "bl1"
+    ]
+  ]
+}

@@ -7,7 +7,7 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 public class LegallyDistinctWorldGenConfig {
     public static final Codec<LegallyDistinctWorldGenConfig> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
-                    ConfiguredFeature.field_25833.fieldOf("patch_o_flonters").forGetter(LegallyDistinctWorldGenConfig::getFlonterPatch)
+                    ConfiguredFeature.CODEC.fieldOf("patch_o_flonters").forGetter(LegallyDistinctWorldGenConfig::getFlonterPatch)
             )
                     .apply(instance, LegallyDistinctWorldGenConfig::new)
     );

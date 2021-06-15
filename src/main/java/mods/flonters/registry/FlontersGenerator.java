@@ -2,9 +2,6 @@ package mods.flonters.registry;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import com.google.gson.JsonElement;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.JsonOps;
 import mods.flonters.Flonters;
 import mods.flonters.world.FlontersFeature;
 import mods.flonters.world.FlontersFeatureConfig;
@@ -79,10 +76,6 @@ public class FlontersGenerator {
 
     public static void init() {
         config = new LegallyDistinctWorldGenConfig(configureFeature(PATCH_O_FLONTERS, new FlontersFeatureConfig(), Decorator.NOPE, NopeDecoratorConfig.DEFAULT));
-
-        DataResult<JsonElement> result = LegallyDistinctWorldGenConfig.CODEC.encodeStart(JsonOps.INSTANCE, config);
-        JsonElement jsonElement = result.getOrThrow(true, System.out::println);
-        String json = jsonElement.toString();
 
         for (Biome biome : BuiltinRegistries.BIOME) {
             handleBiome(biome, config);

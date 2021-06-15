@@ -1,39 +1,21 @@
 plugins {
-	id 'fabric-loom' version '0.4-SNAPSHOT'
+	id 'fabric-loom' version '0.8-SNAPSHOT'
 	id 'org.jetbrains.gradle.plugin.idea-ext' version '0.7'
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 1.16
+targetCompatibility = 1.16
 
 mod_name = project.mod_name
 minecraft_version = project.minecraft_version
 archivesBaseName = "${project.mod_name}"
 version = project.version+"+"+project.minecraft_version
 
-processResources {
-	inputs.property "version", project.version
-
-	from(sourceSets.main.resources.srcDirs) {
-		include "fabric.mod.json"
-		expand "version": project.version
-	}
-
-	from(sourceSets.main.resources.srcDirs) {
-		exclude "fabric.mod.json"
-	}
-}
-
-tasks.withType(JavaCompile) {
-	options.encoding = "UTF-8"
-}
-
-minecraft {
-}
 
 repositories {
 	maven { url = "https://maven.fabricmc.net/" }
 	maven { url = "https://jitpack.io" }
+	maven { url = "https://maven.shedaniel.me/" }
 }
 
 dependencies {
@@ -45,8 +27,8 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 
-	modImplementation "io.github.prospector:modmenu:${project.mod_menu_version}"
-	modImplementation ("me.shedaniel:RoughlyEnoughItems:${project.rei_version}") { exclude(module: "ModMenu") }
+	//modImplementation "io.github.prospector:modmenu:${project.mod_menu_version}"
+	modImplementation ("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}") { exclude(module: "ModMenu") }
 
 	implementation 'org.jetbrains:annotations:15.0'
 	compileOnly "com.google.code.findbugs:jsr305:3.0.2"
@@ -60,8 +42,27 @@ idea {
 	}
 }
 
+processResources {
+	inputs.property "version", project.version
+
+	filesMatching("fabric.mod.json") {
+		expand "version": project.version
+	}
+}
+
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.encoding = "UTF-8"
+	it.options.release = 16
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+	classifier = "sources"
+	from sourceSets.main.allSource
+}
+
 jar {
-    from "LICENSE.md"
+	from "LICENSE.md"
 }
 
 idea.project.settings {
@@ -69,12 +70,4 @@ idea.project.settings {
         delegateBuildRunToGradle = false
         testRunner = org.jetbrains.gradle.ext.ActionDelegationConfig.TestRunner.PLATFORM
     }
-}
-
-// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-// if it is present.
-// If you remove this task, sources will not be generated.
-task sourcesJar(type: Jar, dependsOn: classes) {
-	classifier = 'sources'
-	from sourceSets.main.allSource
 }
