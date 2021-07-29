@@ -49,7 +49,7 @@ public class FlontersFeature extends Feature<FlontersFeatureConfig> {
                         if (random.nextDouble() < config.getTallChance() && ((FlonterBlock) flonter.getBlock()).canGrow(world, pos2, world.getBlockState(pos2))) {
                             Block block = FlontersBlocks.getTallFlonter(color);
                             if (block instanceof TallFlonterBlock) {
-                                ((TallFlonterBlock) block).placeAt(world, block.getDefaultState(), pos2, 3);
+                                TallFlonterBlock.placeAt(world, block.getDefaultState(), pos2, 3);
                             }
                         }
                     }
