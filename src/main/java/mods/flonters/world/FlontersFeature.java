@@ -1,6 +1,5 @@
 package mods.flonters.world;
 
-import com.mojang.serialization.Codec;
 import mods.flonters.blocks.FlonterBlock;
 import mods.flonters.blocks.TallFlonterBlock;
 import mods.flonters.registry.FlontersBlocks;
@@ -10,7 +9,6 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
@@ -18,16 +16,16 @@ import java.util.Random;
 
 public class FlontersFeature extends Feature<FlontersFeatureConfig> {
 
-    public FlontersFeature(Codec<FlontersFeatureConfig> featureConfig) {
-        super(featureConfig);
+    public FlontersFeature() {
+        super(FlontersFeatureConfig.CODEC);
     }
 
     @Override
     public boolean generate(FeatureContext<FlontersFeatureConfig> ctx) {
-        return generate(ctx.getWorld(), ctx.getGenerator(), ctx.getRandom(), ctx.getOrigin(), ctx.getConfig());
+        return generate(ctx.getWorld(), ctx.getRandom(), ctx.getOrigin(), ctx.getConfig());
     }
 
-    public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, FlontersFeatureConfig config) {
+    public boolean generate(StructureWorldAccess world, Random random, BlockPos blockPos, FlontersFeatureConfig config) {
         boolean doug = false;
         int distance = Math.min(8, Math.max(1, config.getPatchSize()));
         for (int i = 0; i < config.getPatchQuantity(); i++) {

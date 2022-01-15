@@ -1,28 +1,38 @@
 package mods.flonters.registry;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-import mods.flonters.Flonters;
+import mods.flonters.properties.FlontersProperties;
 import mods.flonters.world.FlontersFeature;
 import mods.flonters.world.FlontersFeatureConfig;
-import mods.flonters.world.LegallyDistinctWorldGenConfig;
-import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
-import net.minecraft.util.Identifier;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.decorator.Decorator;
-import net.minecraft.world.gen.decorator.DecoratorConfig;
-import net.minecraft.world.gen.decorator.NopeDecoratorConfig;
-import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.PlacedFeature;
 
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Supplier;
+import static mods.flonters.Flonters.getId;
 
 public class FlontersGenerator {
+    public static final Feature<FlontersFeatureConfig> PATCH_O_FLONTERS = new FlontersFeature();
+    public static final ConfiguredFeature<?, ?> CONFIGURED_PATCH = PATCH_O_FLONTERS.configure(new FlontersFeatureConfig());
+    public static final PlacedFeature PLACED_PATCH = CONFIGURED_PATCH.withPlacement();
+
+    public static void init() {
+        Registry.register(Registry.FEATURE, getId("patch_o_flonters"), PATCH_O_FLONTERS);
+        Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, getId("patch_o_flonters"), CONFIGURED_PATCH);
+        Registry.register(BuiltinRegistries.PLACED_FEATURE, getId("patch_o_flonters"), PLACED_PATCH);
+        if (FlontersProperties.flonterPatchQuantity > 0) {
+            BiomeModifications.addFeature(ctx -> {
+                        Biome.Category category = ctx.getBiome().getCategory();
+                        return category != Biome.Category.NETHER && category != Biome.Category.THEEND;
+                    },
+                    GenerationStep.Feature.VEGETAL_DECORATION,
+                    BuiltinRegistries.PLACED_FEATURE.getKey(PLACED_PATCH).orElseThrow());
+        }
+    }
+    /*
     private static final List<Biome> checkedBiomes = new ArrayList<>();
     @Nullable
     public static LegallyDistinctWorldGenConfig config;
@@ -50,7 +60,7 @@ public class FlontersGenerator {
     }
 
     private static void addFeature(Biome biome, Identifier identifier, GenerationStep.Feature feature, ConfiguredFeature<?, ?> configuredFeature) {
-        List<List<Supplier<ConfiguredFeature<?, ?>>>> features = biome.getGenerationSettings().getFeatures();
+        List<List<Supplier<PlacedFeature>>> features = biome.getGenerationSettings().getFeatures();
 
         int stepIndex = feature.ordinal();
 
@@ -58,12 +68,12 @@ public class FlontersGenerator {
             features.add(Lists.newArrayList());
         }
 
-        List<Supplier<ConfiguredFeature<?, ?>>> stepList = features.get(feature.ordinal());
+        List<Supplier<PlacedFeature>> stepList = features.get(feature.ordinal());
         if (stepList instanceof ImmutableList) {
             features.set(feature.ordinal(), stepList = new ArrayList<>(stepList));
         }
 
-        if (!BuiltinRegistries.CONFIGURED_FEATURE.getKey(configuredFeature).isPresent()) {
+        if (BuiltinRegistries.CONFIGURED_FEATURE.getKey(configuredFeature).isEmpty()) {
             if (BuiltinRegistries.CONFIGURED_FEATURE.getOrEmpty(identifier).isPresent()) {
                 throw new RuntimeException("[Flonters] :) : " + identifier.toString());
             } else {
@@ -80,6 +90,7 @@ public class FlontersGenerator {
         for (Biome biome : BuiltinRegistries.BIOME) {
             handleBiome(biome, config);
         }
+
         RegistryEntryAddedCallback.event(BuiltinRegistries.BIOME).register((i, identifier, biome) -> handleBiome(biome, config));
-    }
+    }*/
 }

@@ -8,6 +8,7 @@ import mods.flonters.registry.FlontersBlocks;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
+import net.minecraft.block.TallPlantBlock;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -70,7 +71,7 @@ public class ItemFlonterFertilizer extends Item {
             if (((FlonterBlock) block).canGrow(world, pos, world.getBlockState(pos))) {
                 if (!world.isClient) {
                     TallFlonterBlock tall = (TallFlonterBlock) FlontersBlocks.getTallFlonter(((FlonterBlock) block).getColor());
-                    tall.placeAt(world, tall.getDefaultState(), pos, 3);
+                    TallPlantBlock.placeAt(world, tall.getDefaultState(), pos, 3);
                     context.getStack().decrement(1);
                 } else {
                     for (int p = 0; p < 15; p++) {

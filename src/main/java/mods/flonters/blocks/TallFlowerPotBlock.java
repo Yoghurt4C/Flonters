@@ -58,11 +58,12 @@ public class TallFlowerPotBlock extends FlowerPotBlock implements Fertilizable {
 
     @Override
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        if (state.get(HALF) != DoubleBlockHalf.UPPER) {
-            return super.canPlaceAt(state, world, pos);
-        } else {
+        if (!world.getBlockState(pos.up()).isAir()) return false;
+        if (state.get(HALF) == DoubleBlockHalf.UPPER) {
             BlockState blockState = world.getBlockState(pos.down());
             return blockState.getBlock() == this && blockState.get(HALF) == DoubleBlockHalf.LOWER;
+        } else {
+            return super.canPlaceAt(state, world, pos);
         }
     }
 
