@@ -41,7 +41,7 @@ public class ItemFlonterFertilizer extends Item {
         BlockPos pos = context.getBlockPos();
         final int range = 3;
         Block block = world.getBlockState(pos).getBlock();
-        if (BlockTags.BAMBOO_PLANTABLE_ON.contains(block)) {
+        if (block.getRegistryEntry().isIn(BlockTags.BAMBOO_PLANTABLE_ON)) {
             if (!world.isClient) {
                 List<BlockPos> validPosList = new ArrayList<>();
 

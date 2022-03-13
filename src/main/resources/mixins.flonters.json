@@ -3,7 +3,8 @@
   "package": "mods.flonters.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "FlowerPotMixin"
+    "FlowerPotMixin",
+    "BiomeCategoryAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
